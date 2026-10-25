@@ -21,7 +21,7 @@ const DEFAULT_PROFILE = {
   experienceCompany: "Infinitech Advertising Corporation & Ollopa Company",
   experienceRole: "Full-Stack Trainee & Social Media Specialist",
   experienceDesc: "Full-Stack Feature Engineering & Module Development for Abic-Realty with Laravel RESTful APIs & React.js; Social Media Marketing & Multi-Account Management; Game Design & UI/UX flow at Ollopa Company.",
-  profilePicture: "profile_lans.png"
+  profilePicture: "images/profile_lans.png"
 };
 
 const DEFAULT_PROJECTS = [
@@ -96,7 +96,7 @@ const DEFAULT_CERTIFICATES = [
     issuer: "DICT Aurora - ICT Literacy and Competency Development Bureau (ILCDB)",
     date: "August 21, 2025",
     desc: "Certificate of Attendance for the four (4) hour Information Session conducted via online conferencing platform. Control No. 2025-08-AUR-IS-04-OL-212.",
-    img: "cert_data_privacy.png"
+    img: "images/certs/cert_data_privacy.png"
   },
   {
     id: "cert-3",
@@ -104,7 +104,7 @@ const DEFAULT_CERTIFICATES = [
     issuer: "Department of Information and Communications Technology (DICT) - South Cotabato & ILCDB",
     date: "August 29, 2025",
     desc: "Certificate of Participation for actively participating in the 2-hour Virtual Information Session via Zoom Platform on promoting responsible digital citizenship and building safer digital communities.",
-    img: "cert_digital_citizenship.png"
+    img: "images/certs/cert_digital_citizenship.png"
   },
   {
     id: "cert-4",
@@ -112,7 +112,7 @@ const DEFAULT_CERTIFICATES = [
     issuer: "ASEAN Foundation & Break The Fake Movement (Supported by Google.org)",
     date: "August 16, 2025",
     desc: "Certificate of Participation for completing the Hour of Code Campaign as part of the AI Ready ASEAN Programme via Zoom.",
-    img: "cert_hour_of_code.png"
+    img: "images/certs/cert_hour_of_code.png"
   },
   {
     id: "cert-5",
@@ -120,7 +120,7 @@ const DEFAULT_CERTIFICATES = [
     issuer: "Sultan Kudarat State University — Graduate School (MAT-Filipino)",
     date: "Agosto 17, 2025",
     desc: "Aktibong pakikilahok sa webinar: 'Pagtataya 2.0: Pagsasanib ng Teknolohiya at Malikhaing Interbensyon sa Silid-Aralan' sa SKSU ACCESS Campus.",
-    img: "cert_pagtataya.png"
+    img: "images/certs/cert_pagtataya.png"
   },
   {
     id: "cert-6",
@@ -128,7 +128,7 @@ const DEFAULT_CERTIFICATES = [
     issuer: "Certiport, CertNexus & Pearson Professional Assessments",
     date: "December 16, 2025",
     desc: "Completed certification requirements for IT Specialist in Data Analytics. Verification Code: wnr65-48Sy (verify.certiport.com).",
-    img: "cert_data_analytics.png"
+    img: "images/certs/cert_data_analytics.png"
   },
   {
     id: "cert-7",
@@ -144,7 +144,7 @@ const DEFAULT_CERTIFICATES = [
     issuer: "Terra Hertz",
     date: "August 16, 2025",
     desc: "Certificate of Participation for completing the Live Webinar: 'AI for Beginners: AI in Industries: Real-World Applications' conducted by Terra Hertz. Validation ID: TERRAHERTZ - 000 000 000 461.",
-    img: "cert_ai_for_beginners.png"
+    img: "images/certs/cert_ai_for_beginners.png"
   },
   {
     id: "cert-9",
@@ -152,7 +152,7 @@ const DEFAULT_CERTIFICATES = [
     issuer: "Infinitech Advertising Corporation",
     date: "April 17, 2026",
     desc: "Proudly presented to Lans Lorence N. Hernandez for successfully completing 486 hours of On-The-Job Training at Infinitech Advertising Corporation, Makati City.",
-    img: "cert_infinitech_completion.png"
+    img: "images/certs/cert_infinitech_completion.png"
   },
   {
     id: "cert-10",
@@ -160,7 +160,7 @@ const DEFAULT_CERTIFICATES = [
     issuer: "Infinitech Advertising Corporation",
     date: "April 17, 2026",
     desc: "Certified that Lans Lorence N. Hernandez successfully completed the development of the project: ABIC Realty Admin & HR System at Infinitech Advertising Corporation.",
-    img: "cert_infinitech_project.png"
+    img: "images/certs/cert_infinitech_project.png"
   }
 ];
 
@@ -201,6 +201,22 @@ function handleUrlLoginRoute() {
 }
 
 // --- 3. Profile Information LocalStorage Retrieval & DOM Injection ---
+// One-time migration: fix old bare image paths after folder reorganization
+(function migrateStoredPaths() {
+  try {
+    const raw = localStorage.getItem("portfolio_profile");
+    if (!raw) return;
+    const data = JSON.parse(raw);
+    let changed = false;
+    // Fix profile picture path
+    if (data.profilePicture === "profile_lans.png") {
+      data.profilePicture = "images/profile_lans.png";
+      changed = true;
+    }
+    if (changed) localStorage.setItem("portfolio_profile", JSON.stringify(data));
+  } catch (e) {}
+})();
+
 function getStoredProfile() {
   const stored = localStorage.getItem("portfolio_profile");
   if (!stored) {
@@ -814,7 +830,7 @@ function initAdminEditorPage() {
 
     const preview = document.getElementById("edit-preview-profile");
     if (preview) {
-      preview.src = profile.profilePicture || "profile_lans.png";
+      preview.src = profile.profilePicture || "images/profile_lans.png";
     }
   }
 
