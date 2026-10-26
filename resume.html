@@ -21,27 +21,104 @@
   <link rel="stylesheet" href="styles.css">
   <style>
     @media print {
+      @page {
+        margin: 12mm 15mm;
+        size: auto;
+      }
+      *, *::before, *::after {
+        background: transparent !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
       body {
         background: #ffffff !important;
-        color: #111827 !important;
+        color: #1e293b !important;
+        font-size: 11pt !important;
+        line-height: 1.5 !important;
       }
-      .navbar, .footer, .ambient-glow, .btn-cyber-primary, .badge-custom {
+      main {
+        padding-top: 0 !important;
+      }
+      .navbar, .footer, .ambient-glow, .badge-custom, .theme-toggle-btn,
+      #download-resume-btn, a[download], .btn-cyber-primary, .btn-cyber-secondary {
         display: none !important;
       }
+      .container {
+        max-width: 100% !important;
+        width: 100% !important;
+        padding: 0 !important;
+      }
       .glass-card {
-        border: 1px solid #e5e7eb !important;
-        background: #ffffff !important;
-        color: #111827 !important;
+        border: 1px solid #cbd5e1 !important;
+        background: #f8fafc !important;
+        color: #0f172a !important;
         box-shadow: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        margin-bottom: 1.25rem !important;
+        padding: 1.25rem !important;
+      }
+      .timeline {
+        border-left: 2px solid #0284c7 !important;
+        padding-left: 1.5rem !important;
       }
       .timeline::before {
-        background: #000 !important;
+        display: none !important;
       }
       .timeline-dot {
-        background: #000 !important;
+        background: #0284c7 !important;
+        border: 2px solid #ffffff !important;
+        box-shadow: none !important;
+        left: -1.95rem !important;
       }
-      h1, h2, h3, h4, h5 {
-        color: #000 !important;
+      .timeline-item {
+        page-break-inside: avoid;
+        break-inside: avoid;
+        margin-bottom: 1.5rem !important;
+      }
+      .timeline-date {
+        color: #0369a1 !important;
+        font-weight: 700 !important;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        color: #0f172a !important;
+        page-break-after: avoid;
+        break-after: avoid;
+      }
+      .text-white {
+        color: #0f172a !important;
+      }
+      .text-secondary {
+        color: #475569 !important;
+      }
+      .text-info {
+        color: #0284c7 !important;
+      }
+      .text-warning {
+        color: #d97706 !important;
+      }
+      .gradient-text {
+        -webkit-text-fill-color: initial !important;
+        background: none !important;
+        color: #0284c7 !important;
+      }
+      .tag-pill {
+        border: 1px solid #94a3b8 !important;
+        background: #f1f5f9 !important;
+        color: #1e293b !important;
+        font-weight: 600 !important;
+      }
+      .badge {
+        border: 1px solid #64748b !important;
+        color: #0f172a !important;
+      }
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
       }
     }
   </style>
@@ -56,7 +133,7 @@
   <nav class="navbar navbar-expand-lg" id="navbar">
     <div class="container">
       <a href="index.html" class="nav-brand">
-        <span class="brand-icon">LH</span>
+        <img src="images/profile_lans.png" alt="Lans Lorence" class="nav-brand-avatar profile-portrait-img" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid rgba(0,242,254,0.5);">
         <span>Lans Lorence</span>
       </a>
 
@@ -95,9 +172,14 @@
           <p class="text-secondary mx-auto mb-4" style="max-width: 680px;">
             Mindoro State University (BSIT) &bull; Infinitech Advertising Corporation &bull; Ollopa Company &bull; TESDA NCIII Java Certified Programmer.
           </p>
-          <button id="download-resume-btn" class="btn-cyber-primary">
-            <i class="fas fa-file-pdf"></i> Download PDF / Print Resume
-          </button>
+          <div class="d-inline-flex flex-wrap gap-3 justify-content-center">
+            <a href="resume/HERNANDEZ,%20LANS%20LORENCE%20_%20RESUME_UPDATED.pdf" download="HERNANDEZ, LANS LORENCE _ RESUME_UPDATED.pdf" class="btn-cyber-primary text-decoration-none">
+              <i class="fas fa-download me-2"></i> Download PDF
+            </a>
+            <button id="download-resume-btn" class="btn-cyber-secondary">
+              <i class="fas fa-print me-2"></i> Print Resume
+            </button>
+          </div>
         </div>
 
         <!-- Official Contact Header Strip -->
@@ -459,7 +541,7 @@
       <div class="row g-4 mb-4">
         <div class="col-lg-5">
           <a href="index.html" class="nav-brand mb-3">
-            <span class="brand-icon">LH</span>
+            <img src="images/profile_lans.png" alt="Lans Lorence" class="nav-brand-avatar profile-portrait-img" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid rgba(0,242,254,0.5);">
             <span>Lans Lorence</span>
           </a>
           <p class="text-secondary small" style="max-width: 360px;">
@@ -488,18 +570,18 @@
           <p class="text-secondary small mb-3">
             Zone 3, Ibaba West, Calapan City Oriental Mindoro, Philippines, 5200
           </p>
-          <div class="d-flex gap-2">
-            <a href="https://github.com/l4nsxz" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="GitHub">
+          <div class="d-flex flex-wrap gap-2">
+            <a href="https://www.facebook.com/lanslorence.hernandez.12/" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="Facebook">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://www.instagram.com/_egoistl4nszxc/" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="Instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://github.com/l4nszxc" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="GitHub">
               <i class="fab fa-github"></i>
             </a>
-            <a href="https://l4nsxz.github.io/l4ns_portfolio" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="GitHub Pages">
+            <a href="https://l4nsxz.github.io/l4ns_portfolio" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="Portfolio">
               <i class="fas fa-globe"></i>
-            </a>
-            <a href="mailto:lanslorence@gmail.com" class="footer-social-btn" title="Email Lans">
-              <i class="fas fa-envelope"></i>
-            </a>
-            <a href="tel:+639639447150" class="footer-social-btn" title="Call Lans">
-              <i class="fas fa-phone"></i>
             </a>
           </div>
         </div>

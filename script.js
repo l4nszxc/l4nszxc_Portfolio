@@ -265,6 +265,15 @@ function initNavbar() {
     } else {
       link.classList.remove("active");
     }
+
+    // Auto-close Bootstrap mobile menu on link click
+    link.addEventListener("click", () => {
+      const navCollapse = document.getElementById("portfolioNav");
+      if (navCollapse && navCollapse.classList.contains("show") && window.bootstrap) {
+        const bsCollapse = window.bootstrap.Collapse.getInstance(navCollapse) || new window.bootstrap.Collapse(navCollapse);
+        bsCollapse.hide();
+      }
+    });
   });
 }
 
@@ -725,7 +734,32 @@ function initResumeDownload() {
   if (resumeBtn) {
     resumeBtn.addEventListener("click", e => {
       e.preventDefault();
-      window.print();
+      const pdfUrl = "resume/HERNANDEZ,%20LANS%20LORENCE%20_%20RESUME_UPDATED.pdf";
+      
+      // Try hidden iframe print first so the exact PDF is printed
+      let printFrame = document.getElementById("resume-print-frame");
+      if (!printFrame) {
+        printFrame = document.createElement("iframe");
+        printFrame.id = "resume-print-frame";
+        printFrame.style.position = "fixed";
+        printFrame.style.right = "0";
+        printFrame.style.bottom = "0";
+        printFrame.style.width = "0";
+        printFrame.style.height = "0";
+        printFrame.style.border = "0";
+        document.body.appendChild(printFrame);
+      }
+
+      printFrame.src = pdfUrl;
+      printFrame.onload = () => {
+        try {
+          printFrame.contentWindow.focus();
+          printFrame.contentWindow.print();
+        } catch (err) {
+          // Fallback: open PDF in a new tab if iframe print is restricted by browser security
+          window.open(pdfUrl, "_blank");
+        }
+      };
     });
   }
 }

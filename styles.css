@@ -208,6 +208,22 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-mono);
 }
 
+.nav-brand-avatar {
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  border: 2px solid rgba(0, 242, 254, 0.6) !important;
+  box-shadow: 0 0 14px rgba(0, 242, 254, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex-shrink: 0;
+}
+
+.nav-brand:hover .nav-brand-avatar {
+  transform: scale(1.08);
+  box-shadow: 0 0 22px rgba(0, 242, 254, 0.55);
+}
+
 .nav-link {
   color: var(--text-muted) !important;
   text-decoration: none;
@@ -814,7 +830,7 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateY(0);
 }
 
-/* --- Mobile Responsiveness --- */
+/* --- Mobile Responsiveness & Bootstrap Enhancements --- */
 @media (max-width: 991.98px) {
   .hero-title {
     font-size: 2.7rem;
@@ -830,22 +846,92 @@ h1, h2, h3, h4, h5, h6 {
     width: 130px;
     height: 130px;
   }
+  .navbar-collapse {
+    background: rgba(10, 11, 13, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    margin-top: 0.75rem;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7);
+  }
+  .navbar-nav .nav-link {
+    padding: 0.75rem 1rem !important;
+    border-radius: var(--radius-sm);
+  }
 }
 
+@media (max-width: 767.98px) {
+  :root {
+    --nav-height: 64px;
+  }
+  .hero-title {
+    font-size: 2.1rem;
+    line-height: 1.25;
+  }
+  .display-4, .display-5 {
+    font-size: 1.95rem !important;
+  }
   .typewriter-wrapper {
-    font-size: 1.35rem;
+    font-size: 1.15rem;
   }
   .profile-portrait-card {
-    width: 280px;
-    height: 350px;
+    width: 250px;
+    height: 310px;
+    margin: 20px auto;
   }
-  .status-pill-top {
-    left: -10px;
-    top: -15px;
+  .glass-card {
+    padding: 1.2rem !important;
+    border-radius: var(--radius-md) !important;
   }
-  .status-pill-bottom {
-    left: -10px;
-    bottom: 10px;
+  .status-pill-top, .status-pill-bottom {
+    display: none !important;
+  }
+  .btn-cyber-primary, .btn-cyber-secondary {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+  .timeline {
+    padding-left: 20px;
+  }
+  .timeline::before {
+    left: 4px;
+  }
+  .timeline-dot {
+    left: -20px;
+    width: 12px;
+    height: 12px;
+  }
+  .footer-social-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .hero-title {
+    font-size: 1.8rem;
+  }
+  .nav-brand span {
+    font-size: 1rem;
+  }
+  .nav-brand-avatar {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .btn-cyber-primary, .btn-cyber-secondary {
+    width: 100%;
+    margin-bottom: 0.5rem;
   }
 }
 
