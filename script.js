@@ -27,57 +27,43 @@ const DEFAULT_PROFILE = {
 const DEFAULT_PROJECTS = [
   {
     id: "proj-1",
-    title: "Abic-Realty Full-Stack Web Application",
+    title: "El Nido, Palawan — Tourism Website",
     category: "web",
-    categoryLabel: "Full-Stack Web",
-    desc: "Engineered and maintained core web application features for Abic-Realty using Laravel backend RESTful APIs and React.js interactive frontend with MySQL schema design and secure state management.",
-    tags: ["Laravel", "React.js", "RESTful API", "MySQL", "State Management"],
-    img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80"
+    categoryLabel: "Tourism Web Design",
+    desc: "Official tourism promotion and municipal booking website for El Nido, Palawan. Features tour packages, island hopping itineraries, gallery, and an integrated booking system for a world-class island paradise.",
+    tags: ["HTML5", "CSS3", "JavaScript", "Tourism", "Responsive Design"],
+    img: "images/projects/el_nido_palawan.png",
+    link: "https://l4nszxc.github.io/EL_Nido_Palawan/"
   },
   {
     id: "proj-2",
-    title: "Custom Accounting & Admin Modules",
+    title: "Sky & Shore Beach Resort Website",
     category: "web",
-    categoryLabel: "Enterprise Systems",
-    desc: "Built custom Accounting and Administrative modules to streamline property management, financial tracking, user role permissions, and internal reporting workflows.",
-    tags: ["Laravel", "React.js", "Financial Tracking", "Role Auth", "Admin Panel"],
-    img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
+    categoryLabel: "Resort Web Design",
+    desc: "Beach resort website for Sky & Shore in Mansalay, Oriental Mindoro. Showcases exclusive accommodation packages, water activities, amenities, and an online reservation system for families, couples, and barkada groups.",
+    tags: ["HTML5", "CSS3", "JavaScript", "Beach Resort", "Booking System"],
+    img: "images/projects/sky_shore_resort.png",
+    link: "https://l4nszxc.github.io/Sky-Shore-Website/"
   },
   {
     id: "proj-3",
-    title: "Multi-Platform Social Media & Content System",
-    category: "promotional",
-    categoryLabel: "Digital Marketing & VA",
-    desc: "Configured and maintained large-scale multi-account ecosystem across Instagram, Threads, Facebook, YouTube, and X (Twitter) with algorithm warm-up, automated scheduling, and short/long-form video production.",
-    tags: ["Social Media Marketing", "Virtual Assistant", "Content Distribution", "Video Production", "Algorithm Growth"],
-    img: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=800&q=80"
+    title: "Buktot Beach Resort — Eco-Tourism Site",
+    category: "web",
+    categoryLabel: "Eco-Tourism Web Design",
+    desc: "Eco-tourism website for Buktot Beach Resort in Brgy. Manaul, Mansalay. Highlights pristine white sand beaches, turquoise waters, nipa cabanas, eco-camping, day tour packages, and a group trip cost calculator.",
+    tags: ["HTML5", "CSS3", "JavaScript", "Eco-Tourism", "Mindoro"],
+    img: "images/projects/buktot_beach_resort.png",
+    link: "https://l4nszxc.github.io/Buktot_Beack_Resort/"
   },
   {
     id: "proj-4",
-    title: "Game Design Document (GDD) & UI/UX Flow",
-    category: "graphics",
-    categoryLabel: "Game Architecture & UI/UX",
-    desc: "Authored key sections of the Game Design Document (GDD) for Ollopa Company outlining game core mechanics, control systems, and user interface/user experience flow.",
-    tags: ["GDD", "UI/UX Flow", "Core Mechanics", "Control Systems"],
-    img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80"
-  },
-  {
-    id: "proj-5",
-    title: "Java NCIII & C# Software Systems",
-    category: "graphics",
-    categoryLabel: "Desktop & Algorithms",
-    desc: "Object-oriented systems and software engineering certified under TESDA NCIII Java Programming standards and CodeChum C# Programming 2.",
-    tags: ["Java", "C#", "OOP", "TESDA NCIII", "CodeChum"],
-    img: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80"
-  },
-  {
-    id: "proj-6",
-    title: "Lavalust & Vue.js Data Services",
+    title: "Boracay Island — Travel & Tourism Website",
     category: "web",
-    categoryLabel: "Web Projects",
-    desc: "Lightweight, responsive database application architected using Lavalust PHP framework and Vue.js front-end with structured MySQL data storage.",
-    tags: ["PHP", "Lavalust", "Vue.js", "MySQL", "JavaScript"],
-    img: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80"
+    categoryLabel: "Travel Web Design",
+    desc: "Full-featured travel and tourism website for Boracay Island, Aklan. Features DOT-accredited tour packages, island hopping, resort bookings, travel guide, gallery, and a trip planning system for the world-famous island destination.",
+    tags: ["HTML5", "CSS3", "JavaScript", "Travel", "Tour Packages"],
+    img: "images/projects/boracay_island.png",
+    link: "https://l4nszxc.github.io/Boracay_Island/"
   }
 ];
 
@@ -396,7 +382,16 @@ function initTiltCards() {
 }
 
 // --- 8. LocalStorage & Gallery Controller ---
+const GALLERY_VERSION = "v2-tourism-2026"; // Bump this to force reset of gallery data
+
 function getStoredProjects() {
+  // Version check: if version doesn't match, reset to new DEFAULT_PROJECTS
+  const storedVersion = localStorage.getItem("portfolio_gallery_version");
+  if (storedVersion !== GALLERY_VERSION) {
+    localStorage.setItem("portfolio_gallery", JSON.stringify(DEFAULT_PROJECTS));
+    localStorage.setItem("portfolio_gallery_version", GALLERY_VERSION);
+    return DEFAULT_PROJECTS;
+  }
   const stored = localStorage.getItem("portfolio_gallery");
   if (!stored) {
     localStorage.setItem("portfolio_gallery", JSON.stringify(DEFAULT_PROJECTS));
@@ -438,8 +433,11 @@ function initPortfolioGallery() {
           <img src="${item.img}" alt="${escapeHtml(item.title)}" class="project-img" loading="lazy" />
           <div class="project-overlay">
             <button class="btn-cyber-primary py-2 px-3 view-lightbox-btn" style="font-size: 0.85rem;" data-img="${item.img}" data-title="${escapeHtml(item.title)}" data-desc="${escapeHtml(item.desc)}">
-              <i class="fas fa-expand-arrows-alt"></i> View Full
+              <i class="fas fa-expand-arrows-alt"></i> Preview
             </button>
+            ${item.link ? `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="btn-cyber-secondary py-2 px-3" style="font-size: 0.85rem; margin-top: 8px; display: inline-flex; align-items: center; gap: 6px;">
+              <i class="fas fa-external-link-alt"></i> Visit Site
+            </a>` : ""}
           </div>
         </div>
         <div class="project-content">
@@ -449,6 +447,9 @@ function initPortfolioGallery() {
           <div class="d-flex flex-wrap gap-2 mt-auto">
             ${(item.tags || []).map(t => `<span class="tag-pill">${escapeHtml(t)}</span>`).join("")}
           </div>
+          ${item.link ? `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="btn-cyber-primary py-2 px-4 mt-3 d-inline-flex align-items-center gap-2" style="font-size: 0.82rem;">
+            <i class="fas fa-globe"></i> Visit Live Site
+          </a>` : ""}
         </div>
       `;
       galleryGrid.appendChild(card);
